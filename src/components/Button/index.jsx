@@ -1,7 +1,7 @@
 import React from "react";
 import './style.css'
 
-export const PrimaryButton = ({children, size ="", isBlock, onClick}) => {
+export const PrimaryButton = ({children, size ="", isBlock, onClick, className}) => {
     switch(size) {
         case 'sm': size = 'btn-sm'; break;
         case 'md': size = 'btn-md'; break;
@@ -10,7 +10,7 @@ export const PrimaryButton = ({children, size ="", isBlock, onClick}) => {
     
     return (
         <button 
-            className={`btn btn-primary ${isBlock ? 'block w-full' : "" } ${size}`} 
+            className={`btn btn-primary ${isBlock ? 'block w-full' : "" } ${size} ${className}`} 
             onClick={e => onClick(e)}
             role="button"
             >

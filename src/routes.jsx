@@ -10,6 +10,8 @@ import Calons from "./features/Calons";
 import Settings from "./features/Settings";
 import Periodes from "./features/Periodes";
 import EditUser from "./features/UserManagement/edit";
+import CreateCalon from "./features/Calons/CreateCalon";
+import EditCalon from "./features/Calons/EditCalon";
 
 const ProtectedRoute = ({children}) => {
     const token = useSelector(state => state.auth.token)
@@ -51,6 +53,14 @@ const routes = createBrowserRouter([
             {
                 path: '/calons',
                 element: <Calons />
+            },
+            {
+                path: '/calons/create/:periodeId',
+                element: <CreateCalon />
+            },
+            {
+                path: '/calons/:id/edit',
+                element: <EditCalon />
             },
             {
                 path: '/settings',

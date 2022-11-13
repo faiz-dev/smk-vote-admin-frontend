@@ -16,6 +16,21 @@ export const Input = ({label, name, type, placeholder ="", value, onChangeValue,
     )
 }
 
+export const TextArea = ({label, name, type, placeholder ="", value, onChangeValue, vertical = true, className = ''}) => {
+    return (
+        <div className={`${!vertical ? 'flex items-center': 'flex flex-col'} mb-4 ${className}`}>
+            <label className="text-sm">{label}</label>
+            <textarea 
+                className={`py-2 px-3 border-2 rounded ${vertical ? 'mt-2' : 'grow'} `}
+                name={name} 
+                value={value}
+                onChange={e => onChangeValue(e.target.value)}
+                placeholder={placeholder}
+                >{placeholder}</textarea>
+        </div>
+    )
+}
+
 
 export const Select = ({label, name, value, onChangeValue, vertical = true, options =[], showlabel = true, className = ''}) => {
     
