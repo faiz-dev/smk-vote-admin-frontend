@@ -1,0 +1,69 @@
+
+.btn {
+    @apply  py-2 px-4 rounded;
+}
+
+.btn:disabled {
+    @apply opacity-40
+}
+
+.btn:hover {
+    @apply text-accent;
+}
+
+.btn-sm {
+    @apply py-1 px-2 text-xs;
+}
+
+.btn-md {
+    @apply py-2 px-4 text-base;
+}
+
+.btn-primary {
+    @apply bg-primary text-white;
+}
+
+.btn-primary:hover, .btn-primary:active {
+    @apply text-white bg-primary-active;
+}
+
+.btn-info {
+    @apply bg-info text-white;
+}
+
+.btn-info:hover, .btn-info:active {
+    @apply text-white bg-info-active;
+}
+
+.btn-success {
+    @apply bg-success text-white;
+}
+
+.btn-success:hover, .btn-success:active {
+    @apply text-white bg-success-active;
+}
+
+.btn-warning {
+    @apply bg-warning text-white;
+}
+
+.btn-warning:hover, .btn-warning:active {
+    @apply text-white bg-warning-active;
+}
+
+.btn-danger {
+    @apply bg-danger text-white;
+}
+
+.btn-danger:hover, .btn-danger:active {
+    @apply text-white bg-danger-active;
+}
+
+.btn-dark {
+    @apply bg-dark text-white;
+}
+
+.btn-dark:hover, .btn-dark:active {
+    @apply text-white bg-dark-active;
+}
+

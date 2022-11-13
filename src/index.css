@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --app-navbar-height: 70px;
+    --app-sidebar-width: 250px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter',Helvetica,sans-serif;
+  background-color: white;
+  @apply text-sm;
+}
+
+.bg-preset {
+  background-color: #f5f8fa;
+}
+
+.f-brand {
+  height: var(--app-navbar-height);
+}
+
+header{
+  height: var(--app-navbar-height);
+}
+
+.Sidebar {
+  width: var(--app-sidebar-width);
+}
+
+.SideMenu {
+  overflow-y: auto;
+}
+
+.table tr td, th {
+  @apply py-2 px-4;
+}
+
+.table th {
+  @apply text-left;
+}
+
+.table-bordered tr td, .table-bordered tr th {
+  @apply border;
+}
+
+.table-striped tbody tr:nth-child(even),
+.table-striped thead {
+  @apply bg-slate-100;
+}
+
+.card {
+  @apply rounded-md bg-white shadow;
+}
+
+.card-header {
+  min-height: 60px;
+  @apply border-b flex justify-between items-center px-5;
+}
+
+.card-body {
+  @apply p-5;
+}
+
+.card-title {
+  @apply font-medium;
+  @apply text-[1rem];
+}
+
+.drawer-on {
+  @apply -translate-x-[0];
+}
+
+.draweroverlay {
+  @apply fixed h-screen w-screen bg-black opacity-50 top-0 right-0 left-0 z-10;
+}

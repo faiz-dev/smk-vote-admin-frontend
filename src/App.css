@@ -1,0 +1,22 @@
+
+.f-brand__logo {
+  max-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.f-brand__logo :nth-child(1) {
+  margin-right: 10px;
+}
+
+.f-brand__logo span {
+  font-weight: bold;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.btn:active {
+  
+}
