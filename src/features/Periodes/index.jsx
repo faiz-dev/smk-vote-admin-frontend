@@ -79,6 +79,7 @@ const Periodes = () => {
                                     <th>Judul</th>
                                     <th>Aktif</th>
                                     <th>Groups</th>
+                                    <th>Waktu Berakhir</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -89,6 +90,7 @@ const Periodes = () => {
                                         <td>{p.name}</td>
                                         <td>{p.isActive?"True":"False"}</td>
                                         <td>{p.groups}</td>
+                                        <td>{p.waktuBerakhir}</td>
                                         <td>
                                             <div className="flex gap-2">
                                                 <button
@@ -119,6 +121,7 @@ const CreatePeriode = ({onCreated}) => {
     const [name, setName] = useState('')
     const [isActive, setIsActive] = useState(true)
     const [groups, setGroups] = useState('')
+    const [waktuBerakhir, setWaktuBerakhir] = useState('')
 
     const send = async () => {
         const result = await axios.post(`${apiUrl}/periode`, {
@@ -148,6 +151,7 @@ const CreatePeriode = ({onCreated}) => {
                     onChangeValue={(val) => {setIsActive(val == "true" ? true : false)}}
                     />
                 <Input label={'ID Groups'} value={groups} onChangeValue={setGroups} />
+                <Input label={'Tanggal Berakhir'} type="datetime-local" value={waktuBerakhir} onChangeValue={setWaktuBerakhir} /> 
                 <PrimaryButton onClick={send}>Simpan</PrimaryButton>
             </div>
         </div>
@@ -159,6 +163,7 @@ const EditPeriode = ({periode, className, onUpdated, onCancel}) => {
     const [name, setName] = useState('')
     const [isActive, setIsActive] = useState('')
     const [groups, setGroups] = useState('')
+    const [waktuBerakhir, setWaktuBerakhir] = useState('')
 
     useEffect(() => {
         (async () => {
@@ -171,7 +176,7 @@ const EditPeriode = ({periode, className, onUpdated, onCancel}) => {
     }, [periode])
 
     const update = async () => {
-        const result = await axios.put(`${apiUrl}/periode/${periode.id}`, {name, isActive, groupIds:groups})
+        const result = await axios.put(`${apiUrl}/periode/${periode.id}`, {name, isActive, groupIds:groups, waktuBerakhir})
             .then(res => res.data)
         console.log('d',result)
         onUpdated({...result,id: periode.id})
@@ -192,6 +197,7 @@ const EditPeriode = ({periode, className, onUpdated, onCancel}) => {
                     onChangeValue={(val) => {setIsActive(val == "true" ? true : false)}}
                     />
                 <Input label={'ID Groups'} value={groups} onChangeValue={setGroups} />
+                <Input label={'Tanggal Berakhir'} type="datetime-local" value={waktuBerakhir} onChangeValue={setWaktuBerakhir} />
                 <div className="flex gap-3">
                     <PrimaryButton onClick={update}>Simpan</PrimaryButton>
                     <button onClick={onCancel}>Cancel</button>

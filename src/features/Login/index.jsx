@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../../components/Button";
 import { login as serviceLogin } from "../../services/AuthenticationService";
@@ -11,13 +11,13 @@ const Login = () => {
     const [password, setPassword] = useState('1234')
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const apiUrl = useSelector(state => state.layout.apiUrl)
     const goToDashboard = () => {
         navigate('/')
     }
 
     const actionLogin = async () => {
-        const authData = await serviceLogin('https://localhost:7153/api/Auth', username)
+        const authData = await serviceLogin(apiUrl+'/Auth', username)
         dispatch(setToken(authData.token))
         dispatch(setRefreshToken(authData.refreshToken))
         dispatch(setRole(authData.role))

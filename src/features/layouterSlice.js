@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const layoutData = {
     drawerOpen: false,
     pageTitle: '',
-    apiUrl: 'https://localhost:7153/api'
+    apiUrl: 'http://116.197.129.178:8083/api'
 }
 
 export const layoutDataSlice = createSlice({
