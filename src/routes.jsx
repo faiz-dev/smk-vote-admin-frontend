@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, createHashRouter, Navigate } from "react-router-dom";
 import App from "./App";
 import { NotFoundPage } from "./features/ErrorPages";
 import Login from "./features/Login";
@@ -21,7 +21,7 @@ const ProtectedRoute = ({children}) => {
     return children
 }
 
-const routes = createBrowserRouter([
+const routes = createHashRouter([
     {
         path: '/',
         element: 
