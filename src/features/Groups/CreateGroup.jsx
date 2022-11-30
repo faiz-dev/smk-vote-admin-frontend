@@ -6,10 +6,17 @@ import { Input } from "../../components/FormInput";
 
 const CreateGroup = ({onCreated}) => {
     const apiUrl = useSelector(state => state.layout.apiUrl)
+    const token = useSelector(state => state.auth.token)
     const [name, setName] = useState('')
 
     const onHandleSubmit = async () => {
-        const result = await axios.post(`${apiUrl}/group?name=${name}`)
+        const result = await axios.post(`${apiUrl}/group?name=${name}`,{
+            name: name
+        },{
+            headers: {
+                "authorization": 'bearer '+token
+            }
+        })
             .then(res => res.data)
         onCreated(result)
     }

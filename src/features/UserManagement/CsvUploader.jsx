@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { PrimaryButton } from "../../components/Button";
 import { Select } from "../../components/FormInput";
+import { useSelector } from "react-redux";
 
 const CsvUploader = ({apiUrl}) => {
     const [file, setFile] = useState()
@@ -12,6 +13,7 @@ const CsvUploader = ({apiUrl}) => {
     const fileReader = new FileReader()
     const [uploadMsg, setUploadMsg] = useState("")
     const [uploadStatus, setUplaodStatus] = useState("")
+    const token = useSelector(state => state.auth.token)
 
     const handleOnChange = (e) => {
         setFile(e.target.files[0])
@@ -38,7 +40,12 @@ const CsvUploader = ({apiUrl}) => {
     useEffect(() => {
         if(tempUsers.length > 0) {
             (async () => {
-                const result = await axios.post(`${apiUrl}/User/bulk?groupId=${selectedGroup}`, tempUsers)
+                const result = await axios.post(`${apiUrl}/User/bulk?groupId=${selectedGroup}`, 
+                tempUsers,{
+                    headers: {
+                        "authorization": 'bearer '+token
+                        }
+                })
                     .then(res => {
                         setUplaodStatus('SUCCESS')
                         setUploadMsg(res.data)
