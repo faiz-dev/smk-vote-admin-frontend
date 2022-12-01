@@ -67,7 +67,8 @@ const CsvUploader = ({apiUrl}) => {
         return datarows.map(r => ({
             email: r[0],
             name: r[1],
-            role: r[2] ? parseInt(r[2]) : 0
+            role: r[2] ? parseInt(r[2]) : 0,
+            groupId: r[3] ? parseInt(r[2]) : null,
         }))
     }
 
