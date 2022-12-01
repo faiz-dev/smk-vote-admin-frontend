@@ -11,6 +11,7 @@ import EditGroup from "./EditGroup";
 const Groups = () => {    
     usePageTitle('Groups')
     const apiUrl = useSelector(state => state.layout.apiUrl)
+    const token = useSelector(state => state.auth.token)
     const [name, setName] = useState('')
     const [groups, setGroups] = useState([])
     const [reloadGroup, setReloadGroup] = useState(true)
@@ -43,7 +44,11 @@ const Groups = () => {
         const groupdata = groups.find(g => g.id == id)
         const result = confirm(`Anda yakin akan menghapus grup "${groupdata.name}"?`)
         if (result) {
-            await axios.delete(`${apiUrl}/group/${id}`)
+            await axios.delete(`${apiUrl}/group/${id}`,{
+                headers: {
+                    "authorization": 'bearer '+token
+                }
+            })
                 .then(res => res.data)
             setGroups(groups.filter(g => g.id != id))
         }

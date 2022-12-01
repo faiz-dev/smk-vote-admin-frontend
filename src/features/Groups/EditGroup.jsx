@@ -6,10 +6,17 @@ import { Input } from "../../components/FormInput";
 
 const EditGroup = ({group, onUpdated, onCancel, className}) => {
     const apiUrl = useSelector(state => state.layout.apiUrl)
+    const token = useSelector(state => state.auth.token)
     const [name, setName] = useState(group.name)
 
     const onHandleSubmit = async () => {
-        const result = await axios.put(`${apiUrl}/group/${group.id}?name=${name}`)
+        const result = await axios.put(`${apiUrl}/group/${group.id}?name=${name}`,{
+            name:name
+        },{
+            headers: {
+                "authorization": 'bearer '+token
+            }
+        })
             .then(res => res.data)
             onUpdated(result)
     }

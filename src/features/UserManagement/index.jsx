@@ -20,6 +20,7 @@ const UserManagement = () => {
     const [selectedGroup, setSelectedGroup] = useState("")
     const [usersGroup, setUsersGroup] = useState([])
     const roles = ['USER', 'ADMIN', 'GURU', 'SISWA']
+    const token = useSelector(state => state.auth.token)
 
     useEffect(() => {
         (async () => {
@@ -45,6 +46,20 @@ const UserManagement = () => {
         navigate(`${id}`)
     }
 
+    const deleteGroup = async (id) => {
+        const groupUser = usersGroup.find(u => u.id == id)
+        const confir = confirm(`Anda yakin akan menghapus "${groupUser.name}"?`)
+        if (confir) {
+            await axios.delete(`${apiUrl}/User/${id}`,{
+                headers: {
+                    "authorization": 'bearer '+token
+                }
+            })
+                .then(res => res.data)
+                setUsersGroup(usersGroup.filter(u => u.id != id))
+        }
+    }
+
     return (
         <div className="flex gap-5">
             <div className="w-1/2 mb-5 border border-gray-400 rounded border-dashed p-4">
@@ -56,7 +71,7 @@ const UserManagement = () => {
                     onChangeValue={setSelectedGroup}
                     value={selectedGroup}
                     options={groups ? groups.map(g => ({value: g.id, text: g.name})) : []}
-                    />
+                />
                 {usersGroup.length == 0 && selectedGroup != '' ? (
                     <div className="py-4 border border-dashed border-gray-400 rounded-lg px-4">
                         Tidak ada user dalam grup terpilih
@@ -91,7 +106,8 @@ const UserManagement = () => {
                                                         onClick={() => goToEdit(u.id)}>
                                                         <BsPencil />
                                                     </button>
-                                                    <button className="border rounded border-dashed border-gray-400 p-1 text-gray-600">
+                                                    <button className="border rounded border-dashed border-gray-400 p-1 text-gray-600"
+                                                        onClick={() => deleteGroup(u.id)}>
                                                         <BsTrash />
                                                     </button>
                                                 </div>

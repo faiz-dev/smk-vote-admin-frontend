@@ -17,6 +17,7 @@ const EditUser = () => {
     const [groups, setGroups] = useState([])
     const navigate = useNavigate()
     const [selectedGroup, setSelectedGroup] = useState("")
+    const token = useSelector(state => state.auth.token)
 
     useEffect(() => {
         (async () => {
@@ -42,13 +43,17 @@ const EditUser = () => {
     // )
 
     const handlingOnSubmit = async () => {
-        const result = await axios.put(`${apiUrl}/user/${id}`, {
+        const result = await axios.put(`${apiUrl}/User/${id}`,{
             email: user.email,
             name: user.name,
             role: user.role,
-            groupId: user.group
+            group: user.group
+        },{
+            headers: {
+                "authorization": 'bearer '+token
+            }
         })
-                        .then(res => res.data)
+            .then(res => res.data)
         setUser(result)
     }
 
