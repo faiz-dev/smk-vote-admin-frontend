@@ -11,6 +11,7 @@ import { usePageTitle } from "../../hooks/usePageTitle";
 const Periodes = () => {
     const [periodes, setPeriodes] = useState([])
     const apiUrl = useSelector((state) => state.layout.apiUrl)
+    const token = useSelector(state => state.auth.token)
     const [editPeriode, setEditPeriode] = useState(null)
     usePageTitle('Periodes')
 
@@ -49,7 +50,11 @@ const Periodes = () => {
         const periode = periodes.find(p => p.id == id)
         const ask = confirm("Anda yakin akan menghapus Periode "+periode.name+"?")
         if (ask) {
-            await axios.delete(`${apiUrl}/periode/${id}`)
+            await axios.delete(`${apiUrl}/periode/${id}`,{
+                headers: {
+                    "authorization": 'bearer '+token
+                }
+            })
                 .then(_ => {
                     setPeriodes(periodes.filter(p => p.id != id))
                 })

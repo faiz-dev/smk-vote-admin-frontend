@@ -7,8 +7,9 @@ import { Input, TextArea } from "../../components/FormInput";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
 const EditCalon = () => {
-    usePageTitle('Tambah Calon')
+    usePageTitle('Edit Calon')
     const apiUrl = useSelector(state => state.layout.apiUrl)
+    const token = useSelector(state => state.auth.token)
     const navigate = useNavigate()
     const {id} = useParams()
     const [calonData, setCalonData] = useState(null)
@@ -21,7 +22,11 @@ const EditCalon = () => {
 
     useEffect(() => {
         (async () => {
-            const result = await axios.get(`${apiUrl}/calon/${id}`)
+            const result = await axios.get(`${apiUrl}/calon/${id}`, {
+                headers: {
+                    "authorization": 'bearer '+token
+                }
+            })
                 .then(res => res.data)
                 .catch(err => {
                     console.log(err)
@@ -43,7 +48,12 @@ const EditCalon = () => {
         }
         const result = await axios.put(`${apiUrl}/calon/${calonData.id}`, {
                     name, description:deskripsi, noUrut, photo, periodeId: calonData.periode.id
-                }).then(res => res.data)
+                },{
+                    headers: {
+                        "authorization": 'bearer '+token
+                    }
+                })
+                .then(res => res.data)
                 .catch(err => {
                     console.log(err)
                     return null

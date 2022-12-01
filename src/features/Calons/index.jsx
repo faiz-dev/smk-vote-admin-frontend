@@ -11,6 +11,7 @@ import { usePageTitle } from "../../hooks/usePageTitle";
 const Calons = () => {
     usePageTitle('Calons')
     const apiUrl = useSelector(state => state.layout.apiUrl)
+    const token = useSelector(state => state.auth.token)
     const navigate = useNavigate()
     const [searchParams, setSearchParams] = useSearchParams()
 
@@ -32,7 +33,11 @@ const Calons = () => {
             (async () => {
                 const periodeData = periodes.find(p => p.id == selectedPeriode)
                 if (periodeData) setSelectedPeriodeName(periodeData.name)
-                const result = await axios.get(`${apiUrl}/calon/periode/${selectedPeriode}`)
+                const result = await axios.get(`${apiUrl}/calon/periode/${selectedPeriode}`,{
+                    headers: {
+                        "authorization": 'bearer '+token
+                    }
+                })
                     .then(res => res.data)
                     .catch(err => {
                         console.log(err)
@@ -44,14 +49,18 @@ const Calons = () => {
     }, [selectedPeriode])
 
     const openEdit = (id) => {
-        navigate(id+'/edit')
+        navigate(`${id}/edit`)
     }
 
     const deleteCalon = async (id) => {
         const dataCalon = calons.find(c => c.id == id)
         let cfm = confirm('Anda yakin akan menghapus calon '+dataCalon.name+'?')
         if (cfm) {
-            const result = await axios.delete(`${apiUrl}/calon/${id}`)
+            const result = await axios.delete(`${apiUrl}/calon/${id}`,{
+                headers: {
+                    "authorization": 'bearer '+token
+                }
+            })
                 .then(res => res.data)
                 .catch(err => {
                     console.log(err)

@@ -9,6 +9,7 @@ import { usePageTitle } from "../../hooks/usePageTitle";
 const CreateCalon = () => {
     usePageTitle('Tambah Calon')
     const apiUrl = useSelector(state => state.layout.apiUrl)
+    const token = useSelector(state => state.auth.token)
     const navigate = useNavigate()
     const {periodeId} = useParams()
     const [periode, setPeriode] = useState(null)    
@@ -38,7 +39,12 @@ const CreateCalon = () => {
         }
         const result = await axios.post(`${apiUrl}/calon`, {
                     name, description:deskripsi, noUrut, photo, periodeId: periode.id
-                }).then(res => res.data)
+                },{
+                    headers: {
+                        "authorization": 'bearer '+token
+                    }
+                })
+                .then(res => res.data)
                 .catch(err => {
                     console.log(err)
                     return null
